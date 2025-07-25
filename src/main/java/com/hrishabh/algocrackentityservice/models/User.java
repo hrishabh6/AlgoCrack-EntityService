@@ -36,6 +36,7 @@ public class User extends BaseModel {
 
     private String imgUrl; // Optional
 
+    @Column(name = "ranking")
     private String rank;
 
     private Integer achievementPoints;
