@@ -21,4 +21,9 @@ public class Tag extends BaseModel {
 
     @ManyToMany(mappedBy = "tags")
     private List<Question> questions = new ArrayList<>();
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+
 }

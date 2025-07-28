@@ -10,6 +10,8 @@ CREATE TABLE user (
                       achievement_points INT
 );
 
+
+
 -- Create Table: question
 CREATE TABLE question (
                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -23,6 +25,23 @@ CREATE TABLE question (
                           constraints VARCHAR(255),
                           timeout_limit INT
 );
+
+
+-- Create the 'solution' table
+CREATE TABLE solution (
+                          id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                          question_id BIGINT NOT NULL,
+                          language VARCHAR(50) NOT NULL,
+                          code TEXT NOT NULL,
+
+                          CONSTRAINT fk_solution_question FOREIGN KEY (question_id) REFERENCES question(id) ON DELETE CASCADE
+);
+
+-- Optional: Prevent duplicate solutions for the same question and language
+CREATE UNIQUE INDEX idx_unique_question_language ON solution(question_id, language);
+
 
 -- Create Table: test_case
 CREATE TABLE test_case (

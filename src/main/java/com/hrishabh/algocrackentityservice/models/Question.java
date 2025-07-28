@@ -42,4 +42,10 @@ public class Question extends BaseModel {
 
     private Integer timeoutLimit;
 
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Solution> solutions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuestionMetadata> metadataList = new ArrayList<>();
+
 }
