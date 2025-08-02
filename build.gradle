@@ -2,10 +2,11 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'maven-publish' // 1. Add the maven-publish plugin
 }
 
-group = 'com.github.hrishabh6' // ✅ Required by JitPack
-version = 'v1.1' // ✅ Same as the Git tag you're pushing
+group = 'com.github.hrishabh6'
+version = 'v1.0'
 
 java {
     toolchain {
@@ -33,4 +34,18 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// 2. Add the publishing block to suppress the validation error
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+// 3. Suppress the validation
+tasks.withType(GenerateMavenPom).configureEach {
+    suppressPomValidation(MavenPomValidation.DEPENDENCIES_WITHOUT_VERSIONS)
 }
