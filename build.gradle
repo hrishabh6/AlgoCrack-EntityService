@@ -45,7 +45,3 @@ publishing {
     }
 }
 
-// 3. Suppress the validation
-tasks.withType(GenerateMavenPom).configureEach {
-    suppressPomValidation(MavenPomValidation.DEPENDENCIES_WITHOUT_VERSIONS)
-}
