@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.github.hrishabh6' // ✅ Required by JitPack
-version = 'v1.0' // ✅ Same as the Git tag you're pushing
+version = 'v1.1' // ✅ Same as the Git tag you're pushing
 
 java {
     toolchain {
