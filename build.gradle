@@ -2,48 +2,14 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'maven-publish'
 }
 
-group = 'com.hrishabh'
-version = '0.0.4-SNAPSHOT'
+group = 'com.github.hrishabh6' // ✅ Required by JitPack
+version = 'v1.0' // ✅ Same as the Git tag you're pushing
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(24)
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-        }
-    }
-
-
-    repositories {
-        maven {
-            url = uri('D:/Java Codes/Springboot/leetcode/AlgoCrack-' +
-                    '')
-        }
-    }
-}
-
-
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
     }
 }
 
