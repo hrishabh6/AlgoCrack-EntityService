@@ -5,14 +5,41 @@ plugins {
     id 'maven-publish' // 1. Add the maven-publish plugin
 }
 
-group = 'com.github.hrishabh6'
-version = 'v1.0'
+group = 'com.hrishabh'
+version = '0.1.1-SNAPSHOT'
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(24)
     }
 }
+
+repositories {
+    mavenCentral()
+    mavenLocal() // Make sure Gradle can pull from your local Maven repo
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
+
 
 repositories {
     mavenCentral()
@@ -35,13 +62,3 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-// 2. Add the publishing block to suppress the validation error
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-

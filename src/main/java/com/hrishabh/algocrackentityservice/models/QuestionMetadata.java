@@ -18,11 +18,8 @@ public class QuestionMetadata extends BaseModel {
 
     private String returnType;
 
-    @ElementCollection
-    private List<String> paramTypes = new ArrayList<>();
-
-    @ElementCollection
-    private List<String> paramNames = new ArrayList<>();
+    @OneToMany(mappedBy = "questionMetadata", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ParamInfo> parameters = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Language language;
@@ -40,5 +37,11 @@ public class QuestionMetadata extends BaseModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @ElementCollection
+    @CollectionTable(name = "question_metadata_custom_ds", joinColumns = @JoinColumn(name = "question_metadata_id"))
+    @MapKeyColumn(name = "custom_key")
+    @Column(name = "value")
+    private Map<String, String> customDataStructureNames = new HashMap<>();
 }
 
