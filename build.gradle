@@ -5,8 +5,9 @@ plugins {
     id 'maven-publish' // 1. Add the maven-publish plugin
 }
 
-group = 'com.github.hrishabh6'
-version = 'v1.0'
+group = 'com.hrishabh'
+version = '0.0.9-SNAPSHOT'
+
 
 java {
     toolchain {
@@ -41,7 +42,18 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            versionMapping {
+                allVariants {
+                    fromResolutionResult()
+                }
+            }
         }
     }
 }
+
+processResources {
+    exclude("application.properties")
+    exclude("application.yml")
+}
+
 
