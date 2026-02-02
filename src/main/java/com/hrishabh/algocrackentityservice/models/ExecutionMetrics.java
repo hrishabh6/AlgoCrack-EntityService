@@ -3,6 +3,8 @@ package com.hrishabh.algocrackentityservice.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 /**
  * Tracks detailed execution metrics for analytics and monitoring.
  */
@@ -15,7 +17,11 @@ import lombok.*;
 @Table(name = "execution_metrics", indexes = {
         @Index(name = "idx_metrics_submission_id", columnList = "submissionId")
 })
-public class ExecutionMetrics extends BaseModel {
+public class ExecutionMetrics {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
      * Reference to the submission
@@ -95,4 +101,15 @@ public class ExecutionMetrics extends BaseModel {
      */
     @Column(columnDefinition = "JSON")
     private String testCaseTimings;
+
+    /**
+     * Created timestamp
+     */
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }
