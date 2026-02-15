@@ -3,8 +3,11 @@ package com.hrishabh.algocrackentityservice.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Map;
-
+/**
+ * Represents a testcase for a question.
+ * Expected output is NOT stored - it is computed dynamically via the reference
+ * solution (oracle).
+ */
 @Entity
 @Getter
 @Setter
@@ -13,20 +16,23 @@ import java.util.Map;
 @Builder
 public class TestCase extends BaseModel {
 
+    /**
+     * The question this testcase belongs to
+     */
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
 
+    /**
+     * Input for the testcase (stored as JSON string)
+     */
     @Column(columnDefinition = "TEXT")
-    private String input; // Store JSON as String
+    private String input;
 
-    @Column(columnDefinition = "TEXT")
-    private String expectedOutput; // Store JSON as String
-
-    private Integer orderIndex;
-
-    private Boolean isHidden;
-
-    // getters and setters
+    /**
+     * Testcase type: DEFAULT (user-visible) or HIDDEN (judge-only)
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private TestCaseType type;
 }
-

@@ -1,6 +1,5 @@
 package com.hrishabh.algocrackentityservice.models;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,8 +36,28 @@ public class QuestionMetadata extends BaseModel {
 
     private Boolean customInputEnabled;
 
+    /**
+     * For void return types: which parameter index is mutated (0-indexed).
+     * e.g., "0" means the first parameter is mutated in-place.
+     * Null for non-void functions.
+     */
+    private String mutationTarget;
+
+    /**
+     * For void return types: how to serialize the mutated parameter.
+     * e.g., "LEVEL_ORDER", "ARRAY", "JSON"
+     * Null for non-void functions.
+     */
+    private String serializationStrategy;
+
+    /**
+     * Type of question: "ALGORITHM" (default single-function) or "DESIGN_CLASS"
+     * (class-based problems like Codec, LRUCache, MinStack).
+     * Null is treated as ALGORITHM.
+     */
+    private String questionType;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 }
-
