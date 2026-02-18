@@ -19,16 +19,11 @@ public class User extends BaseModel {
 
     private String email;
 
-
     @Column(unique = true, nullable = false)
     private String userId;
 
     @ManyToMany
-    @JoinTable(
-            name = "user_questionsolved",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
-    )
+    @JoinTable(name = "user_questionsolved", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
     private Set<Question> questionsSolved = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -41,5 +36,22 @@ public class User extends BaseModel {
 
     private Integer achievementPoints;
 
+    private String headline;
+
+    private String about;
+
+    private String location;
+
+    private String website;
+
+    private String githubProfile;
+
+    private String twitterProfile;
+
+    private String linkedinProfile;
+
+    private String skills;
+
+    private String school;
 
 }
